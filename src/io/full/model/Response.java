@@ -4,7 +4,7 @@ public class Response {
 
 	private boolean status;
 	private String message;
-	private String errorCode;
+	private Employee data;
 
 	public boolean isStatus() {
 		return status;
@@ -22,17 +22,12 @@ public class Response {
 		this.message = message;
 	}
 
-	public String getErrorCode() {
-		return errorCode;
+	public Employee getData() {
+		return data;
 	}
 
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
-	}
-
-	@Override
-	public String toString() {
-		return status + "|" + message + "|" + errorCode;
+	public void setData(Employee data) {
+		this.data = data;
 	}
 	
 }

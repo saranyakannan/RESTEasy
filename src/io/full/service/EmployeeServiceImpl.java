@@ -24,6 +24,7 @@ public class EmployeeServiceImpl {
 	@POST
     @Path("/add")
 	@Consumes("application/json")
+	@Produces("application/json")
 	public Response addEmployee(Employee e) 
 	{
 		Response response = new Response();
@@ -32,7 +33,6 @@ public class EmployeeServiceImpl {
 		{
 			response.setStatus(false);
 			response.setMessage("Employee Already Exists");
-			response.setErrorCode("EC-01");
 			return response;
 		}
 		
@@ -41,7 +41,6 @@ public class EmployeeServiceImpl {
 		response.setStatus(true);
 		response.setMessage("Employee created successfully");
 		
-		System.out.println("after adding");
 		return response;
 	}
 
@@ -51,10 +50,11 @@ public class EmployeeServiceImpl {
 	public Response deleteEmployee(@PathParam("id") int id) 
 	{
 		Response response = new Response();
-		if(emps.get(id) == null){
+		
+		if(emps.get(id) == null)
+		{
 			response.setStatus(false);
 			response.setMessage("Employee Doesn't Exists");
-			response.setErrorCode("EC-02");
 			return response;
 		}
 		emps.remove(id);
@@ -66,13 +66,27 @@ public class EmployeeServiceImpl {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Employee getEmployee(@PathParam("id") int id) {
+	public Response getEmployee(@PathParam("id") int id) {
+		
+		Response response = new Response();
+		
+		//Map<String, Object> data = new HashMap<String, Object>();
 		
 		if(emps.get(id) != null)
-			return emps.get(id);
+		{
+			response.setStatus(true);
+			response.setMessage("Employee record found");
+			response.setData(emps.get(id));
 			
+			return response;
+		}
 		else
-			return null;
+		{
+			response.setStatus(true);
+			response.setMessage("Employee record not found");
+			return response;
+		}
+			
 	}
 	
 
