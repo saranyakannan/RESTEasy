@@ -22,7 +22,7 @@ public class EmployeeServiceImpl {
 	
 	
 	@POST
-    @Path("/add")
+    @Path("/")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Response addEmployee(Employee e) 
@@ -35,7 +35,6 @@ public class EmployeeServiceImpl {
 			response.setMessage("Employee Already Exists");
 			return response;
 		}
-		
 		
 		emps.put(e.getId(), e);
 		response.setStatus(true);
@@ -69,8 +68,6 @@ public class EmployeeServiceImpl {
 	public Response getEmployee(@PathParam("id") int id) {
 		
 		Response response = new Response();
-		
-		//Map<String, Object> data = new HashMap<String, Object>();
 		
 		if(emps.get(id) != null)
 		{
