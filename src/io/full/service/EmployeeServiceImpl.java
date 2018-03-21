@@ -24,9 +24,8 @@ public class EmployeeServiceImpl {
 	@POST
     @Path("/add")
 	@Consumes("application/json")
-	public void addEmployee(Employee e) 
+	public Response addEmployee(Employee e) 
 	{
-		System.out.println("comes here ::" + e);
 		Response response = new Response();
 		
 		if(emps.get(e.getId()) != null)
@@ -34,17 +33,16 @@ public class EmployeeServiceImpl {
 			response.setStatus(false);
 			response.setMessage("Employee Already Exists");
 			response.setErrorCode("EC-01");
-			//return response;
+			return response;
 		}
 		
-		System.out.println("id ::" + e.getId());
 		
 		emps.put(e.getId(), e);
 		response.setStatus(true);
 		response.setMessage("Employee created successfully");
 		
 		System.out.println("after adding");
-		//return response;
+		return response;
 	}
 
 	@DELETE
@@ -69,12 +67,6 @@ public class EmployeeServiceImpl {
 	@Path("/{id}")
 	@Produces("application/json")
 	public Employee getEmployee(@PathParam("id") int id) {
-		
-		System.out.println( "id ::" + id);
-		
-		System.out.println("comes here ad" + emps.get(id));
-		
-		System.out.println(emps.get(id));
 		
 		if(emps.get(id) != null)
 			return emps.get(id);
